@@ -180,7 +180,7 @@ jobs:
       - name: Collect release assets
         run: |
           mkdir release
-          cp artifacts/kotlin-lsp-*/kotlin-lsp-*.tar.gz release/
+          #cp artifacts/kotlin-lsp-*/kotlin-lsp-*.tar.gz release/
           cp artifacts/kotlin-lsp-*/kotlin-lsp-*.zip release/
           #cp artifacts/vsix-packages/*.vsix release/
 
