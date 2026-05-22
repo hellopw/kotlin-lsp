@@ -167,7 +167,7 @@ jobs:
           path: "*.vsix"
 
   release:
-    needs: [build, vscode-extension]
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -182,7 +182,7 @@ jobs:
           mkdir release
           cp artifacts/kotlin-lsp-*/kotlin-lsp-*.tar.gz release/
           cp artifacts/kotlin-lsp-*/kotlin-lsp-*.zip release/
-          cp artifacts/vsix-packages/*.vsix release/
+          #cp artifacts/vsix-packages/*.vsix release/
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
@@ -192,7 +192,7 @@ jobs:
           draft: false
 
   publish:
-    needs: build
+    needs: [build, vscode-extension]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
