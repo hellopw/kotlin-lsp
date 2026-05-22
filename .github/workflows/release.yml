@@ -108,12 +108,12 @@ jobs:
           mkdir -p bin
 
           # Extract binaries
-          for arch in linux-x86_64 linux-aarch64 darwin-x86_64 darwin-aarch64; do
-            tar -xzf ../../artifacts/kotlin-lsp-${arch}/kotlin-lsp-${arch}.tar.gz -C bin/
-          done
+          #for arch in linux-x86_64 linux-aarch64 darwin-x86_64 darwin-aarch64; do
+          #  tar -xzf ../../artifacts/kotlin-lsp-${arch}/kotlin-lsp-${arch}.tar.gz -C bin/
+          #done
 
           # Extract Windows binaries
-          for arch in windows-x86_64 windows-aarch64; do
+          for arch in windows-x86_64; do
             unzip -q ../../artifacts/kotlin-lsp-${arch}/kotlin-lsp-${arch}.zip -d bin/
           done
 
@@ -137,24 +137,24 @@ jobs:
           cd contrib/vscode
 
           # linux-x64
-          mkdir -p server && cp bin/kotlin-lsp-linux-x86_64 server/kotlin-lsp && chmod +x server/kotlin-lsp
-          npx @vscode/vsce package --no-dependencies --target linux-x64 -o ../../kotlin-lsp-linux-x64-${GITHUB_REF_NAME}.vsix
-          rm -rf server
+          #mkdir -p server && cp bin/kotlin-lsp-linux-x86_64 server/kotlin-lsp && chmod +x server/kotlin-lsp
+          #npx @vscode/vsce package --no-dependencies --target linux-x64 -o ../../kotlin-lsp-linux-x64-${GITHUB_REF_NAME}.vsix
+          #rm -rf server
 
           # linux-arm64
-          mkdir -p server && cp bin/kotlin-lsp-linux-aarch64 server/kotlin-lsp && chmod +x server/kotlin-lsp
-          npx @vscode/vsce package --no-dependencies --target linux-arm64 -o ../../kotlin-lsp-linux-arm64-${GITHUB_REF_NAME}.vsix
-          rm -rf server
+          #mkdir -p server && cp bin/kotlin-lsp-linux-aarch64 server/kotlin-lsp && chmod +x server/kotlin-lsp
+          #npx @vscode/vsce package --no-dependencies --target linux-arm64 -o ../../kotlin-lsp-linux-arm64-${GITHUB_REF_NAME}.vsix
+          #rm -rf server
 
           # darwin-x64
-          mkdir -p server && cp bin/kotlin-lsp-darwin-x86_64 server/kotlin-lsp && chmod +x server/kotlin-lsp
-          npx @vscode/vsce package --no-dependencies --target darwin-x64 -o ../../kotlin-lsp-darwin-x64-${GITHUB_REF_NAME}.vsix
-          rm -rf server
+          #mkdir -p server && cp bin/kotlin-lsp-darwin-x86_64 server/kotlin-lsp && chmod +x server/kotlin-lsp
+          #npx @vscode/vsce package --no-dependencies --target darwin-x64 -o ../../kotlin-lsp-darwin-x64-${GITHUB_REF_NAME}.vsix
+          #rm -rf server
 
           # darwin-arm64
-          mkdir -p server && cp bin/kotlin-lsp-darwin-aarch64 server/kotlin-lsp && chmod +x server/kotlin-lsp
-          npx @vscode/vsce package --no-dependencies --target darwin-arm64 -o ../../kotlin-lsp-darwin-arm64-${GITHUB_REF_NAME}.vsix
-          rm -rf server
+          #mkdir -p server && cp bin/kotlin-lsp-darwin-aarch64 server/kotlin-lsp && chmod +x server/kotlin-lsp
+          #npx @vscode/vsce package --no-dependencies --target darwin-arm64 -o ../../kotlin-lsp-darwin-arm64-${GITHUB_REF_NAME}.vsix
+          #rm -rf server
           
           # windows-x64
           mkdir -p server && cp bin/kotlin-lsp-windows-x86_64.exe server/kotlin-lsp.exe
