@@ -1,0 +1,53 @@
+name: CI - Zed Extension
+
+on:
+  workflow_dispatch:
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        target:
+          - wasm32-unknown-unknown
+        os:
+          - windows-latest
+          - ubuntu-latest
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+
+      - name: Build Zed extension (wasm)
+        run: |
+          cd contrib/zed-extension
+          cargo build --release --target ${{ matrix.target }}
+
+      - name: Package Zed extension
+        shell: bash
+        run: |
+          mkdir -p dist
+          cp contrib/zed-extension/target/${{ matrix.target }}/release/kotlin_lsp_zed.wasm dist/extension.wasm
+          cp contrib/zed-extension/extension.toml dist/
+
+      - name: Create archive (Unix)
+        if: runner.os != 'Windows'
+        run: tar -czf zed-extension-${{ matrix.os }}.tar.gz -C dist .
+
+      - name: Create archive (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: Compress-Archive -Path dist/* -DestinationPath zed-extension-${{ matrix.os }}.zip
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: zed-extension-${{ matrix.os }}
+          path: |
+            zed-extension-${{ matrix.os }}.tar.gz
+            zed-extension-${{ matrix.os }}.zip
