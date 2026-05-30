@@ -26,10 +26,13 @@ jobs:
         with:
           targets: ${{ matrix.target }}
 
-      - name: Build Zed extension (wasm)
+      - name: Install cargo-component
+        run: cargo install cargo-component
+
+      - name: Build Zed extension (wasm component)
         run: |
           cd contrib/zed-extension
-          cargo build --release --target ${{ matrix.target }}
+          cargo component build --release --target ${{ matrix.target }}
 
       - name: Package Zed extension
         shell: bash
