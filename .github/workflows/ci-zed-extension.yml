@@ -1,6 +1,8 @@
 name: CI - Zed Extension
 
 on:
+  push:
+    tags: ["v*"]
   workflow_dispatch:
 
 env:
